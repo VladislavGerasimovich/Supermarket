@@ -1,3 +1,6 @@
+using Items;
+using ShoppingCart;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
 
@@ -6,7 +9,8 @@ namespace DragAndDrop
     public class DragAndDropHandler : MonoBehaviour
     {
         [SerializeField] private LayerMask _itemsLayerMask;
-        [SerializeField] private Transform _shoppingCart;
+        [SerializeField] private Cart _shoppingCart;
+        [SerializeField] private DropButton _dropButton;
         
         public void Perform(Finger finger)
         {
@@ -15,11 +19,13 @@ namespace DragAndDrop
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, _itemsLayerMask) == true)
             {
-                Debug.Log(hit.collider);
-                hit.rigidbody.useGravity = false;
-                hit.rigidbody.isKinematic = true;
-                hit.transform.SetParent(_shoppingCart);
-                hit.transform.localPosition = Vector3.zero;
+                if(_shoppingCart.HasItem == false)
+                {
+                    Item itemPosition = hit.transform.GetComponent<Item>();
+                    _shoppingCart.TakeItem(itemPosition);
+                    itemPosition.SetPosition(hit, _shoppingCart.transform);
+                    _dropButton.SetStatus(true);
+                }
             }
         }
     }

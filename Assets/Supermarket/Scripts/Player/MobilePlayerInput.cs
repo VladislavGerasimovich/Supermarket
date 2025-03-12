@@ -1,8 +1,5 @@
 using DragAndDrop;
-using System.Collections.Generic;
-using UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
@@ -10,10 +7,10 @@ public class MobilePlayerInput : MonoBehaviour
 {
     [SerializeField] private RectTransform _joystickTransform;
     [SerializeField] private Transform _cameraTransform;
+    [SerializeField] private DragAndDropHandler _dragAndDropHandler;
     [SerializeField] private float _turnSensitivity;
     [SerializeField] private float _verticalMinAngle;
     [SerializeField] private float _verticalMaxAngle;
-    [SerializeField] private DragAndDropHandler _dragAndDropHandler;
 
     private Finger _movementFinger;
     private Vector2 _startPosition;
